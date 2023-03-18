@@ -51,7 +51,7 @@ export const bookApp = async (req, res, next) => {
 };
 export const getUser = async (req, res, next) => {
   try {
-    let user = await User.findOne({ _id:req.body.id });
+    let user = await User.findOne({ email:req.body.email });
     const { password, ...data } = user._doc;
     res.status(200).send(data);
   } catch (error) {
