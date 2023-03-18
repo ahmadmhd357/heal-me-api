@@ -8,9 +8,9 @@ import purchaseRoute from "./routes/purchase.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
+dotenv.config();
 const app = express();
 
-dotenv.config();
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
