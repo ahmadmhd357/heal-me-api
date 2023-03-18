@@ -37,14 +37,15 @@ export const bookApp = async (req, res, next) => {
   try {
     let user = await User.findById(req.body.id)
     if(user.tickets === 0) return next(createError(501,'Please make sure you have enough Tickets'))
-     await User.findByIdAndUpdate(req.body.id, {
+    const respo = await User.findByIdAndUpdate(req.body.id, {
       $addToSet: { appointments: req.body.appointment }, $inc:{ tickets: -1 } 
     });
+    
     let therapist = await Therapist.findOneAndUpdate(
       {username:req.body.appointment.therapistName},
       { $addToSet: { appointments: { ...req.body.appointment, clientName:user.firstName + " " + user.lastName}  } }
     );
-    res.status(200).send("success");
+    res.status(200).send(respo);
   } catch (error) {
     next(error);
   }
