@@ -35,25 +35,36 @@ export const deleteProfile = async (req, res, next) => {
 };
 export const bookApp = async (req, res, next) => {
   try {
-    let user = await User.findById(req.body.id)
-    if(user.tickets === 0) return next(createError(501,'Please make sure you have enough Tickets'))
-    const respo = await User.findByIdAndUpdate(req.body.id, {
-      $addToSet: { appointments: req.body.appointment }, $inc:{ tickets: -1 } 
-    });
-    
+    let user = await User.findById(req.body.id);
+    if (user.tickets === 0)
+      return next(createError(501, "Please make sure you have enough Tickets"));
+    //  await User.findByIdAndUpdate(req.body.id, {
+    //   $addToSet: { appointments: req.body.appointment }, $inc:{ tickets: -1 }
+    // });
+    user.$inc("tickets", -1);
+    user.appointments.unshift(req.body.appointment)
+    await user.save();
     let therapist = await Therapist.findOneAndUpdate(
-      {username:req.body.appointment.therapistName},
-      { $addToSet: { appointments: { ...req.body.appointment, clientName:user.firstName + " " + user.lastName}  } }
+      { username: req.body.appointment.therapistName },
+      {
+        $addToSet: {
+          appointments: {
+            ...req.body.appointment,
+            clientName: user.firstName + " " + user.lastName,
+          },
+        },
+      }
     );
-    res.status(200).send(respo);
+    const { password, ...data } = user._doc;
+    res.status(200).send(data);
   } catch (error) {
     next(error);
   }
 };
 export const getUser = async (req, res, next) => {
   try {
-    let user = await User.findOne({ email:req.body.email });
-    const { password, ...data } = user._doc;
+    let user = await User.findOne({ email: req.body.email });
+    const { password, ...data } = user;
     res.status(200).send(data);
   } catch (error) {
     next(error);
