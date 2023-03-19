@@ -44,8 +44,6 @@ export const getTherapists = async (req, res, next) => {
     const therapists = await Therapist.find();
     res.status(200).send(therapists);
   } catch (error) {
-    next(error)
+    next(error);
   }
-  
 };
-

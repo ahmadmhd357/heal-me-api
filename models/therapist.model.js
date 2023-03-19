@@ -6,7 +6,7 @@ const therapistSchema = new Schema(
     username: {
       type: String,
       required: true,
-      unique:true
+      unique: true,
     },
     email: {
       type: String,
@@ -29,25 +29,26 @@ const therapistSchema = new Schema(
       type: Boolean,
       default: true,
     },
-    img:{
-      type:String,
+    img: {
+      type: String,
     },
-    appointments: 
-      {type: [
+    appointments: {
+      type: [
         {
-          before: {type:String},
-          date: {type:String},
-          desc: {type:String},
-          gender: {type:String},
-          old: {type:Boolean},
-          religious: {type:Boolean},
-          status: {type:String},
-          therapistName: {type:String},
-          time: {type:String},
-          type: {type:String},
-          clientName: {type:String},
-        }
-      ],}
+          before: { type: String },
+          date: { type: String },
+          desc: { type: String },
+          gender: { type: String },
+          old: { type: Boolean },
+          religious: { type: Boolean },
+          status: { type: String },
+          therapistName: { type: String },
+          time: { type: String },
+          type: { type: String },
+          clientName: { type: String },
+        },
+      ],
+    },
   },
   {
     timestamps: true,

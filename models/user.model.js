@@ -45,23 +45,22 @@ const userSchema = new Schema(
       type: Number,
       default: 0,
     },
-    appointments: 
-      {type: [
+    appointments: {
+      type: [
         {
-          before: {type:String},
-          date: {type:String},
-          desc: {type:String},
-          gender: {type:String},
-          old: {type:Boolean},
-          religious: {type:Boolean},
-          status: {type:String},
-          therapistName: {type:String},
-          time: {type:String},
-          type: {type:String},
-        }
-      ],}
-      
-    
+          before: { type: String },
+          date: { type: String },
+          desc: { type: String },
+          gender: { type: String },
+          old: { type: Boolean },
+          religious: { type: Boolean },
+          status: { type: String },
+          therapistName: { type: String },
+          time: { type: String },
+          type: { type: String },
+        },
+      ],
+    },
   },
   {
     timestamps: true,
